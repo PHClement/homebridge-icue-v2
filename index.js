@@ -154,6 +154,19 @@ ESP_LED.prototype = {
      * @param {number} level The saturation of the new call (0-100)
      * @param {function} callback The callback that handles the response.
      */
+    getSaturation: function (level, callback) {
+        socket.emit('icue:color:get:saturation');
+        socket.on('icue:color:get:saturation', (v) => {
+            callback(null, v);
+        });
+    },
+
+    /**
+     * Sets the saturation of the lightbulb.
+     *
+     * @param {number} level The saturation of the new call (0-100)
+     * @param {function} callback The callback that handles the response.
+     */
     setSaturation: function (level, callback) {
         let scaled = Math.round(level * 255);
         socket.emit('icue:color:set:saturation', scaled);
