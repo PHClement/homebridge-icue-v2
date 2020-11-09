@@ -54,8 +54,8 @@ ESP_LED.prototype = {
 
         lightbulbService
             .getCharacteristic(Characteristic.On)
-            .on('get', this.getPowerState.bind(this))
-            .on('set', this.setPowerState.bind(this));
+            .on('get', true)
+            .on('set', true);
 
         // Handle HSV color components
         lightbulbService
@@ -94,7 +94,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     setPowerState: function (state, callback) {
-        callback(null);
+        return true;
     },
 
     /**
