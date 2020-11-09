@@ -84,8 +84,8 @@ ESP_LED.prototype = {
      *
      * @param {function} callback The callback that handles the response.
      */
-    getPowerState: function (callback) {
-        callback(null, true);
+    getPowerState: function () {
+        return true;
     },
 
     /**
@@ -102,10 +102,10 @@ ESP_LED.prototype = {
      *
      * @param {function} callback The callback that handles the response.
      */
-    getBrightness: function (callback) {
+    getBrightness: function () {
         socket.emit('icue:color:get:brightness');
-        socket.on('icue:color:get:brightness', (v) => {
-            callback(null, v);
+        return socket.on('icue:color:get:brightness', (v) => {
+            return v;
         });
     },
 
@@ -116,7 +116,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     setBrightness: function (level, callback) {
-        let scaled = Math.round(level * 255);
+        let scaled = Math.round(level);
         socket.emit('icue:color:set:brightness', scaled);
         callback(null);
     },
@@ -126,10 +126,10 @@ ESP_LED.prototype = {
      *
      * @param {function} callback The callback that handles the response.
      */
-    getHue: function (callback) {
+    getHue: function () {
         socket.emit('icue:color:get:hue');
-        socket.on('icue:color:get:hue', (v) => {
-            callback(null, v);
+        return socket.on('icue:color:get:hue', (v) => {
+            return v;
         });
     },
 
@@ -140,7 +140,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     setHue: function (level, callback) {
-        let scaled = Math.round(level * 255);
+        let scaled = Math.round(level);
         socket.emit('icue:color:set:hue', scaled);
         callback(null);
     },
@@ -153,8 +153,8 @@ ESP_LED.prototype = {
      */
     getSaturation: function (level, callback) {
         socket.emit('icue:color:get:saturation');
-        socket.on('icue:color:get:saturation', (v) => {
-            callback(null, v);
+        return socket.on('icue:color:get:saturation', (v) => {
+            return v;
         });
     },
 
@@ -165,7 +165,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     setSaturation: function (level, callback) {
-        let scaled = Math.round(level * 255);
+        let scaled = Math.round(level);
         socket.emit('icue:color:set:saturation', scaled);
         callback(null);
     },
