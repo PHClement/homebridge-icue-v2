@@ -10,7 +10,7 @@ const socket = io('http://52.47.177.139:7574');
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory('Homebridge-ICUE', 'ESP-ICUE', ESP_LED);
+    homebridge.registerAccessory('homebridge-icue', 'ICUE', ESP_LED);
 };
 
 /**
@@ -45,7 +45,7 @@ ESP_LED.prototype = {
         var informationService = new Service.AccessoryInformation();
 
         informationService
-            .setCharacteristic(Characteristic.Manufacturer, 'Clément de Louvencourt')
+            .setCharacteristic(Characteristic.Manufacturer, 'CORSAIR')
             .setCharacteristic(Characteristic.Model, 'ICUE')
             .setCharacteristic(Characteristic.SerialNumber, 'ICUE564498');
 
