@@ -2,6 +2,29 @@ var Service, Characteristic;
 const io = require('socket.io-client');
 const socket = io('http://52.47.177.139:7574');
 
+let isConnected = false;
+let h = 0, s = 0, b = 0;
+
+socket.on('icue:color:get:connected', function () {
+    isConnected = true;
+});
+
+socket.on('icue:color:get:disconnected', function () {
+    isConnected = false;
+});
+
+socket.on('icue:color:get:brightness', (v) => {
+    b = v;
+});
+
+socket.on('icue:color:get:hue', (v) => {
+    h = v;
+});
+
+socket.on('icue:color:get:saturation', (v) => {
+    s = v;
+});
+
 /**
  * @module homebridge
  * @param {object} homebridge Export functions required to create a
@@ -54,8 +77,8 @@ ESP_LED.prototype = {
 
         lightbulbService
             .getCharacteristic(Characteristic.On)
-            .on('get', true)
-            .on('set', true);
+            .on('get', this.getPowerState.bind(this))
+            .on('set', this.setPowerState.bind(this));
 
         // Handle HSV color components
         lightbulbService
@@ -84,8 +107,8 @@ ESP_LED.prototype = {
      *
      * @param {function} callback The callback that handles the response.
      */
-    getPowerState: function () {
-        return true;
+    getPowerState: function (callback) {
+        return callback(null, isConnected);
     },
 
     /**
@@ -94,7 +117,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     setPowerState: function (state, callback) {
-        return true;
+        return callback(null);
     },
 
     /**
@@ -104,9 +127,6 @@ ESP_LED.prototype = {
      */
     getBrightness: function () {
         socket.emit('icue:color:get:brightness');
-        return socket.on('icue:color:get:brightness', (v) => {
-            return v;
-        });
     },
 
     /**
@@ -126,11 +146,9 @@ ESP_LED.prototype = {
      *
      * @param {function} callback The callback that handles the response.
      */
-    getHue: function () {
+    getHue: function (callback) {
         socket.emit('icue:color:get:hue');
-        return socket.on('icue:color:get:hue', (v) => {
-            return v;
-        });
+        return callback(null, h);
     },
 
     /**
@@ -153,9 +171,7 @@ ESP_LED.prototype = {
      */
     getSaturation: function (level, callback) {
         socket.emit('icue:color:get:saturation');
-        return socket.on('icue:color:get:saturation', (v) => {
-            return v;
-        });
+        return callback(null, s);
     },
 
     /**
