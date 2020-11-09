@@ -1,0 +1,18 @@
+{
+  "bridge": {
+    "name": "Homebridge",
+    "username": "CF:22:07:91:EA:30",
+    "port": 51826,
+    "pin": "392-29-104"
+  },
+
+  "description": "Connects devices to HomeKit",
+
+  "accessories": [
+    {
+      "accessory": "ICUE-LED",
+      "name": "Ordinateur",
+      "id": 0
+    }
+  ]
+}
