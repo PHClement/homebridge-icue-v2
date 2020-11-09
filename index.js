@@ -170,6 +170,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     getSaturation: function (level, callback) {
+        this.log(level, callback);
         socket.emit('icue:color:get:saturation');
         return callback(null, s);
     },
