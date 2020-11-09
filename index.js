@@ -85,10 +85,7 @@ ESP_LED.prototype = {
      * @param {function} callback The callback that handles the response.
      */
     getPowerState: function (callback) {
-        socket.emit('icue:color:get:connected');
-        socket.on('icue:color:get:connected', (isConnected) => {
-            callback(null, isConnected);
-        });
+        callback(null, true);
     },
 
     /**
