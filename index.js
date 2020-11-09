@@ -2,7 +2,7 @@ var Service, Characteristic;
 const io = require('socket.io-client');
 const socket = io('http://52.47.177.139:7574');
 
-let isConnected = false;
+let isConnected = true;
 let h = 0, s = 0, b = 0;
 
 socket.on('icue:color:get:connected', function () {
