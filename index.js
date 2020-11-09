@@ -88,7 +88,7 @@ ESP_LED.prototype = {
 
         lightbulbService
             .addCharacteristic(new Characteristic.Saturation())
-            .on('get', this.getSaturation.bind(this))
+            /*.on('get', this.getSaturation.bind(this))*/
             .on('set', this.setSaturation.bind(this));
 
         lightbulbService
